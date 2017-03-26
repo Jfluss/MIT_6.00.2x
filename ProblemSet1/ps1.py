@@ -105,7 +105,6 @@ def brute_force_cow_transport(cows,limit=10):
             for j in i:
                 weight += cows[j]
             results.append(weight)
-            print(results)
         for n in results:
             if n > limit:
                 overweight = True
@@ -117,7 +116,6 @@ def brute_force_cow_transport(cows,limit=10):
             temp = partition[:]
         elif len(partition) < len(temp):
             temp = partition[:]
-            print(temp)
     return temp
         
 # Problem 3
@@ -134,7 +132,18 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
-    # TODO: Your code here
+    print('Running greedy algorithm')
+    start = time.time()
+    a = greedy_cow_transport(cows)
+    end = time.time()
+    print(a)
+    print('The algorithm found an optimum of ' + str(len(a)) + ' trips and took ' + str(end-start) + ' seconds.')
+    print('Running brute force algorithm')
+    start = time.time()
+    b = brute_force_cow_transport(cows)
+    end = time.time()
+    print(b)
+    print('The algorithm found an optimum of ' + str(len(b)) + ' trips and took ' + str(end-start) + ' seconds.')
     pass
 
 
