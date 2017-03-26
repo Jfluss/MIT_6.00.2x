@@ -54,8 +54,24 @@ def greedy_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    cows_copy=sorted(cows, key= lambda x: cows[x], reverse=True)
+    avail = cows_copy[:]
+    trips=[] 
+    n=0
+    weight = 0
+    while len(cows_copy)>0:
+        trips.append([])
+        for i in avail:
+            if weight + cows[i] <= limit:
+                weight += cows[i]
+                trips[n].append(i)
+                cows_copy.remove(i)
+            else:
+                pass
+        n += 1
+        weight = 0
+        avail = cows_copy[:]
+    return trips
 
 
 # Problem 2
@@ -79,9 +95,30 @@ def brute_force_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
-
+    temp = []
+    cows_copy=sorted(cows, key= lambda x: cows[x], reverse=True)
+    for partition in get_partitions(cows_copy):
+        overweight = False
+        results = []
+        for i in partition:
+            weight = 0
+            for j in i:
+                weight += cows[j]
+            results.append(weight)
+            print(results)
+        for n in results:
+            if n > limit:
+                overweight = True
+            else:
+                pass
+        if overweight == True:
+            continue
+        if temp == []:
+            temp = partition[:]
+        elif len(partition) < len(temp):
+            temp = partition[:]
+            print(temp)
+    return temp
         
 # Problem 3
 def compare_cow_transport_algorithms():
@@ -111,7 +148,7 @@ cows = load_cows("ps1_cow_data.txt")
 limit=100
 print(cows)
 
-print(greedy_cow_transport(cows, limit))
-print(brute_force_cow_transport(cows, limit))
+#print(greedy_cow_transport(cows, limit))
+#print(brute_force_cow_transport(cows, limit))
 
 
